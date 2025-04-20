@@ -61,7 +61,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/signin"
                 android:textAlignment="center"
-                android:textSize="18sp"/>
+                android:textSize="18sp"
+                android:paddingBottom='10dp'/>
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
