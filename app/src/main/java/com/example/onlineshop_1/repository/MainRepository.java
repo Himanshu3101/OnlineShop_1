@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.onlineshop_1.domain.BannerModel;
 import com.example.onlineshop_1.domain.CategoryModel;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -16,7 +17,8 @@ import java.util.ArrayList;
 public class MainRepository {
 
     private final FirebaseDatabase fireDatabase = FirebaseDatabase.getInstance();
-    public LiveData<ArrayList<CategoryModel>> loadCategory(){
+
+    public LiveData<ArrayList<CategoryModel>> loadCategory() {
 
         MutableLiveData<ArrayList<CategoryModel>> listData = new MutableLiveData<>();
         DatabaseReference ref = fireDatabase.getReference("Category");
@@ -24,9 +26,9 @@ public class MainRepository {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 ArrayList<CategoryModel> list = new ArrayList<>();
-                for(DataSnapshot childSnapshot:snapshot.getChildren()){
+                for (DataSnapshot childSnapshot : snapshot.getChildren()) {
                     CategoryModel item = childSnapshot.getValue(CategoryModel.class);
-                    if(item != null) list.add(item);
+                    if (item != null) list.add(item);
                 }
                 listData.setValue(list);
             }
@@ -38,4 +40,31 @@ public class MainRepository {
         });
         return listData;
     }
+
+
+    public LiveData<ArrayList<BannerModel>> loadBanner() {
+
+        MutableLiveData<ArrayList<BannerModel>> listData = new MutableLiveData<>();
+        DatabaseReference ref = fireDatabase.getReference("Banner");
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ArrayList<BannerModel> list = new ArrayList<>();
+                for (DataSnapshot childSnapshot : snapshot.getChildren()) {
+                    BannerModel item = childSnapshot.getValue(BannerModel.class);
+                    if (item != null) list.add(item);
+                }
+                listData.setValue(list);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        return listData;
+
+    }
 }
+
+
