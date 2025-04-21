@@ -1,4 +1,4 @@
-package com.example.onlineshop_1;
+package com.example.onlineshop_1.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
